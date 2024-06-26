@@ -63,6 +63,8 @@
     "server_name": null,
     // The port to bind to.
     "server_port": 7860,
+    // The URL prefix; Set if not served from the root ("/") of the domain
+    "root_path": null,
     // The number of workers to use for the web server. Use -1 to disable queueing.
     "queue_concurrency_count": 1,
     // Whether or not to automatically delete all uploaded files, to save disk space
@@ -70,6 +72,7 @@
 
     // * General options *
 
+    "title": null,
     // The default implementation to use for Whisper. Can be "whisper" or "faster-whisper".
     // Note that you must either install the requirements for faster-whisper (requirements-fasterWhisper.txt) 
     // or whisper (requirements.txt)
@@ -148,7 +151,8 @@
     "highlight_words": false,
 
     // Diarization settings
-    "auth_token": null,
+    //"auth_token": null,
+    "auth_token": "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",
     // Whether to perform speaker diarization
     "diarization": false,
     // The number of speakers to detect

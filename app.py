@@ -413,11 +413,11 @@ class WhisperTranscriber:
 
     def _handle_diarization(self, audio_path: str, input: dict):
         if self.diarization and self.diarization_kwargs:
-            print("Diarizing ", audio_path)
+            print("Diarising ", audio_path)
             diarization_result = list(self.diarization.run(audio_path, **self.diarization_kwargs))
 
             # Print result
-            print("Diarization result: ")
+            print("Diarisation result: ")
             for entry in diarization_result:
                 print(f"  start={entry.start:.1f}s stop={entry.end:.1f}s speaker_{entry.speaker}")
 
@@ -600,7 +600,8 @@ def create_ui(app_config: ApplicationConfig):
     if app_config.input_audio_max_duration > 0:
         ui_description += "\n\n" + "Max audio file length: " + str(app_config.input_audio_max_duration) + " s"
 
-    ui_article = "Read the [documentation here](https://gitlab.com/aadnk/whisper-webui/-/blob/main/docs/options.md)."
+    #ui_article = "Read the [documentation here](https://gitlab.com/aadnk/whisper-webui/-/blob/main/docs/options.md)."
+    ui_article = "Read the [documentation here](https://rtis.cspages.otago.ac.nz/research-computing/misc/stt.html)."
 
     whisper_models = app_config.get_model_names()
 
@@ -609,7 +610,7 @@ def create_ui(app_config: ApplicationConfig):
         gr.Dropdown(choices=sorted(get_language_names()), label="Language", value=app_config.language),
         gr.Text(label="URL (YouTube, etc.)"),
         gr.File(label="Upload Files", file_count="multiple"),
-        gr.Audio(source="microphone", type="filepath", label="Microphone Input"),
+        gr.Audio(sources=["microphone"], type="filepath", label="Microphone Input"),
         gr.Dropdown(choices=["transcribe", "translate"], label="Task", value=app_config.task),
     ]
 
@@ -627,18 +628,18 @@ def create_ui(app_config: ApplicationConfig):
     has_diarization_libs = Diarization.has_libraries()
 
     if not has_diarization_libs:
-        print("Diarization libraries not found - disabling diarization")
+        print("Diarisation libraries not found - disabling diarization")
         app_config.diarization = False
 
     common_diarization_inputs = lambda : [
-        gr.Checkbox(label="Diarization", value=app_config.diarization, interactive=has_diarization_libs),
-        gr.Number(label="Diarization - Speakers", precision=0, value=app_config.diarization_speakers, interactive=has_diarization_libs)
+        gr.Checkbox(label="Diarisation", value=app_config.diarization, interactive=has_diarization_libs),
+        gr.Number(label="Diarisation - Speakers", precision=0, value=app_config.diarization_speakers, interactive=has_diarization_libs)
     ]
 
     is_queue_mode = app_config.queue_concurrency_count is not None and app_config.queue_concurrency_count > 0    
 
     simple_transcribe = gr.Interface(fn=ui.transcribe_webui_simple_progress if is_queue_mode else ui.transcribe_webui_simple, 
-                                     description=ui_description, article=ui_article, inputs=[
+                                     allow_flagging="never",description=ui_description, article=ui_article, inputs=[
         *common_inputs(),
         *common_vad_inputs(),
         *common_word_timestamps_inputs(),
@@ -652,7 +653,7 @@ def create_ui(app_config: ApplicationConfig):
     full_description = ui_description + "\n\n\n\n" + "Be careful when changing some of the options in the full interface - this can cause the model to crash."
 
     full_transcribe = gr.Interface(fn=ui.transcribe_webui_full_progress if is_queue_mode else ui.transcribe_webui_full,
-                                   description=full_description, article=ui_article, inputs=[
+                                   allow_flagging="never",description=full_description, article=ui_article, inputs=[
         *common_inputs(),
 
         *common_vad_inputs(),
@@ -679,8 +680,8 @@ def create_ui(app_config: ApplicationConfig):
         gr.Number(label="No speech threshold", value=app_config.no_speech_threshold),
 
         *common_diarization_inputs(),
-        gr.Number(label="Diarization - Min Speakers", precision=0, value=app_config.diarization_min_speakers, interactive=has_diarization_libs),
-        gr.Number(label="Diarization - Max Speakers", precision=0, value=app_config.diarization_max_speakers, interactive=has_diarization_libs),
+        gr.Number(label="Diarisation - Min Speakers", precision=0, value=app_config.diarization_min_speakers, interactive=has_diarization_libs),
+        gr.Number(label="Diarisation - Max Speakers", precision=0, value=app_config.diarization_max_speakers, interactive=has_diarization_libs),
 
     ], outputs=[
         gr.File(label="Download"),
@@ -689,7 +690,7 @@ def create_ui(app_config: ApplicationConfig):
     ])
 
     perform_extra_interface = gr.Interface(fn=ui.perform_extra,
-                                   description="Perform additional processing on a given JSON or SRT file", article=ui_article, inputs=[
+                                   allow_flagging="never",description="Perform additional processing on a given JSON or SRT file", article=ui_article, inputs=[
         gr.Dropdown(choices=sorted(get_language_names()), label="Language", value=app_config.language),
         gr.Text(label="URL (YouTube, etc.)"),
         gr.File(label="Upload Audio File", file_count="single"),
@@ -697,8 +698,8 @@ def create_ui(app_config: ApplicationConfig):
         gr.Checkbox(label="Word Timestamps - Highlight Words", value=app_config.highlight_words),
 
         *common_diarization_inputs(),
-        gr.Number(label="Diarization - Min Speakers", precision=0, value=app_config.diarization_min_speakers, interactive=has_diarization_libs),
-        gr.Number(label="Diarization - Max Speakers", precision=0, value=app_config.diarization_max_speakers, interactive=has_diarization_libs),
+        gr.Number(label="Diarisation - Min Speakers", precision=0, value=app_config.diarization_min_speakers, interactive=has_diarization_libs),
+        gr.Number(label="Diarisation - Max Speakers", precision=0, value=app_config.diarization_max_speakers, interactive=has_diarization_libs),
 
     ], outputs=[
         gr.File(label="Download"),
@@ -706,16 +707,16 @@ def create_ui(app_config: ApplicationConfig):
         gr.Text(label="Segments")
     ])
 
-    demo = gr.TabbedInterface([simple_transcribe, full_transcribe, perform_extra_interface], tab_names=["Simple", "Full", "Extra"])
+    demo = gr.TabbedInterface([simple_transcribe, full_transcribe, perform_extra_interface], tab_names=["Simple", "Full", "Extra"], title=app_config.title)
 
     # Queue up the demo
-    if is_queue_mode:
-        demo.queue(concurrency_count=app_config.queue_concurrency_count)
-        print("Queue mode enabled (concurrency count: " + str(app_config.queue_concurrency_count) + ")")
-    else:
-        print("Queue mode disabled - progress bars will not be shown.")
+    #if is_queue_mode:
+    #    demo.queue(concurrency_count=app_config.queue_concurrency_count)
+    #    print("Queue mode enabled (concurrency count: " + str(app_config.queue_concurrency_count) + ")")
+    #else:
+    #    print("Queue mode disabled - progress bars will not be shown.")
    
-    demo.launch(share=app_config.share, server_name=app_config.server_name, server_port=app_config.server_port)
+    demo.launch(share=app_config.share, server_name=app_config.server_name, server_port=app_config.server_port, max_threads=app_config.queue_concurrency_count, root_path=app_config.root_path)
     
     # Clean up
     ui.close()
@@ -736,6 +737,10 @@ if __name__ == '__main__':
                         help="The host or IP to bind to. If None, bind to localhost.") # None
     parser.add_argument("--server_port", type=int, default=default_app_config.server_port, \
                         help="The port to bind to.") # 7860
+    parser.add_argument("--title", type=str, default=default_app_config.title, \
+                        help="Title") # /
+    parser.add_argument("--root_path", type=str, default=default_app_config.root_path, \
+                        help="Root path.") # /
     parser.add_argument("--queue_concurrency_count", type=int, default=default_app_config.queue_concurrency_count, \
                         help="The number of concurrent requests to process.") # 1
     parser.add_argument("--default_model_name", "--model", type=str, choices=whisper_models, default=default_app_config.default_model_name, \

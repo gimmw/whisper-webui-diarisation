@@ -1,0 +1,20 @@
+git+https://github.com/huggingface/transformers
+git+https://github.com/openai/whisper.git
+transformers
+ffmpeg-python==0.2.0
+#gradio==3.38.0
+#gradio-client==0.8.1
+#gradio
+#gradio-client
+#yt-dlp
+torchaudio
+altair
+json5
+
+# Needed by diarization
+intervaltree
+srt
+torch
+
+https://github.com/pyannote/pyannote-audio/archive/refs/heads/develop.zip
+#pyannote-audio		##older pyannote-audio doesnt support speechbrain 1.0 yet :P required for diarization

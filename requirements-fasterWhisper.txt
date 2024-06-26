@@ -1,9 +1,14 @@
-ctranslate2
-faster-whisper
-ffmpeg-python==0.2.0
-gradio==3.38.0
-gradio-client==0.8.1
-yt-dlp
+--extra-index-url https://download.pytorch.org/whl/cu121
+ctranslate2>=4.0,<5
+faster-whisper~=1.0.2
+#ffmpeg-python==0.2.0
+ffmpeg-python
+#gradio==3.38.0
+#gradio-client==0.8.1
+## gradio >= 4.31 required to support root_path
+gradio~=4.36.1
+gradio-client~=1.0.1
+yt-dlp<2023.12.30	# to satisfy gradio-client websockes<12 dependency
 json5
 torch
 torchaudio
@@ -13,4 +18,15 @@ more_itertools
 intervaltree
 srt
 torch
-https://github.com/pyannote/pyannote-audio/archive/refs/heads/develop.zip
+#https://github.com/pyannote/pyannote-audio/archive/refs/heads/develop.zip
+#pyannote-audio
+https://github.com/pyannote/pyannote-audio/archive/refs/tags/3.3.1.zip
+#pyannote-audio==3.3.1		#>= 3.3.1 required to support speechbrain 1.0; 
+#urllib3<2.0.0,>=1.26.5
+#speechbrain
+
+torchvision
+numpy<2
+
+nvidia-cublas-cu12
+nvidia-cudnn-cu12

@@ -50,7 +50,9 @@ class Diarization:
             return
         from pyannote.audio import Pipeline
 
-        self.pipeline = Pipeline.from_pretrained("pyannote/speaker-diarization@2.1", use_auth_token=self.auth_token)
+        #self.pipeline = Pipeline.from_pretrained("pyannote/speaker-diarization@2.1", use_auth_token=self.auth_token)
+        self.pipeline = Pipeline.from_pretrained("pyannote/speaker-diarization-3.1", use_auth_token=self.auth_token)
+        
         self.initialized = True
 
         # Load GPU mode if available
@@ -171,7 +173,7 @@ def main():
     diarization_result = list(diarization.run(args.audio_file, num_speakers=args.num_speakers, min_speakers=args.min_speakers, max_speakers=args.max_speakers))
 
     # Print result
-    print("Diarization result:")
+    print("Diarisation result:")
     for entry in diarization_result:
         print(f"  start={entry.start:.1f}s stop={entry.end:.1f}s speaker_{entry.speaker}")
 

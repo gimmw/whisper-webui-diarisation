@@ -48,9 +48,11 @@ class VadInitialPromptMode(Enum):
 
 class ApplicationConfig:
     def __init__(self, models: List[ModelConfig] = [], input_audio_max_duration: int = 600, 
-                 share: bool = False, server_name: str = None, server_port: int = 7860, 
+                 share: bool = False, server_name: str = None, server_port: int = 7860,
+                 root_path: str = None,
                  queue_concurrency_count: int = 1, delete_uploaded_files: bool = True,
                  whisper_implementation: str = "whisper",
+                 title: str = None,
                  default_model_name: str = "medium", default_vad: str = "silero-vad", 
                  vad_parallel_devices: str = "", vad_cpu_cores: int = 1, vad_process_timeout: int = 1800, 
                  auto_parallel: bool = False, output_dir: str = None,
@@ -82,10 +84,12 @@ class ApplicationConfig:
         self.share = share
         self.server_name = server_name
         self.server_port = server_port
+        self.root_path = root_path
         self.queue_concurrency_count = queue_concurrency_count
         self.delete_uploaded_files = delete_uploaded_files
 
         self.whisper_implementation = whisper_implementation
+        self.title = title
         self.default_model_name = default_model_name
         self.default_vad = default_vad
         self.vad_parallel_devices = vad_parallel_devices

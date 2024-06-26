@@ -230,7 +230,7 @@ class WhisperTranscriber:
                 raise ValueError("Maximum number of sources is " + str(override_max_sources) + ", but " + str(len(sources)) + " were provided")
 
             try:
-                selectedLanguage = languageName.lower() if len(languageName) > 0 else None
+                selectedLanguage = languageName.lower() if languageName is not None else None
                 selectedModel = modelName if modelName is not None else "base"
 
                 if override_transcribe_file is None:

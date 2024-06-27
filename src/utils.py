@@ -165,7 +165,7 @@ def write_html(transcript: Iterator[dict], file: TextIO, maxLineWidth=None, high
         #text = re.sub(r'\(SPEAKER_\d+\)', '', segment['text'])
         text = segment['text'].strip()
         #segment_longest_speaker = segment.get('longest_speaker', '')
-        segment_longest_speaker = segment.get('longest_speaker', None)
+        segment_longest_speaker = segment.get('longest_speaker', '')
 
         if match := re.search('SPEAKER_(\d+)', segment_longest_speaker):
           speakerid = match.group(1)

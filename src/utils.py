@@ -163,7 +163,7 @@ def write_html(transcript: Iterator[dict], file: TextIO, maxLineWidth=None, high
     for segment in transcript:
       try:
         #text = re.sub(r'\(SPEAKER_\d+\)', '', segment['text'])
-        text = segment['text']
+        text = segment['text'].strip()
         #segment_longest_speaker = segment.get('longest_speaker', '')
         segment_longest_speaker = segment.get('longest_speaker', None)
 
@@ -182,7 +182,7 @@ def write_html(transcript: Iterator[dict], file: TextIO, maxLineWidth=None, high
                 flush=True,
             )
       except Exception as e:
-        print(f"Error writing segment {segment}: {e}")
+        print(f"HTML:Error writing segment {segment}: {e}")
         raise
     print("\t\t</div>\n", file=file)
     print("\t</body></html>", file=file)

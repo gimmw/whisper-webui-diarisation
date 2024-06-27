@@ -68,7 +68,7 @@
     // The number of workers to use for the web server. Use -1 to disable queueing.
     "queue_concurrency_count": 1,
     // Whether or not to automatically delete all uploaded files, to save disk space
-    "delete_uploaded_files": true,
+    "delete_uploaded_files": false,
 
     // * General options *
 
@@ -76,7 +76,7 @@
     // The default implementation to use for Whisper. Can be "whisper" or "faster-whisper".
     // Note that you must either install the requirements for faster-whisper (requirements-fasterWhisper.txt) 
     // or whisper (requirements.txt)
-    "whisper_implementation": "whisper",
+    "whisper_implementation": "faster-whisper",
 
     // The default model name.
     "default_model_name": "medium",
@@ -151,8 +151,7 @@
     "highlight_words": false,
 
     // Diarization settings
-    //"auth_token": null,
-    "auth_token": "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",
+    "auth_token": null,
     // Whether to perform speaker diarization
     "diarization": false,
     // The number of speakers to detect

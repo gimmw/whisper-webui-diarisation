@@ -33,7 +33,7 @@ import ffmpeg
 import gradio as gr
 
 from src.download import ExceededMaximumDuration, download_url
-from src.utils import optional_int, slugify, str2bool, write_srt, write_vtt
+from src.utils import optional_int, slugify, str2bool, write_srt, write_vtt, write_html
 from src.vad import AbstractTranscription, NonSpeechStrategy, PeriodicTranscriptionConfig, TranscriptionConfig, VadPeriodicTranscription, VadSileroTranscription
 from src.whisper.abstractWhisperContainer import AbstractWhisperContainer
 from src.whisper.whisperFactory import create_whisper_container
@@ -46,7 +46,7 @@ MAX_FILE_PREFIX_LENGTH = 17
 # Limit auto_parallel to a certain number of CPUs (specify vad_cpu_cores to get a higher number)
 MAX_AUTO_CPU_CORES = 8
 
-WHISPER_MODELS = ["tiny", "base", "small", "medium", "large", "large-v1", "large-v2"]
+WHISPER_MODELS = ["tiny", "tiny.en", "base", "base.en", "small", "small.en", "medium", "medium.en", "large", "large-v1", "large-v2"]
 
 class VadOptions:
     def __init__(self, vad: str = None, vadMergeWindow: float = 5, vadMaxMergeSize: float = 150, vadPadding: float = 1, vadPromptWindow: float = 1, 
@@ -509,11 +509,13 @@ class WhisperTranscriber:
         print("Max line width " + str(languageMaxLineWidth))
         vtt = self.__get_subs(result["segments"], "vtt", languageMaxLineWidth, highlight_words=highlight_words)
         srt = self.__get_subs(result["segments"], "srt", languageMaxLineWidth, highlight_words=highlight_words)
+        html = self.__get_subs(result["segments"], "html", languageMaxLineWidth, highlight_words=highlight_words)
 
         output_files = []
         output_files.append(self.__create_file(srt, output_dir, source_name + "-subs.srt"));
         output_files.append(self.__create_file(vtt, output_dir, source_name + "-subs.vtt"));
         output_files.append(self.__create_file(text, output_dir, source_name + "-transcript.txt"));
+        output_files.append(self.__create_file(html, output_dir, source_name + "-transcript.html"));
         output_files.append(json_file)
 
         return output_files, text, vtt
@@ -541,6 +543,8 @@ class WhisperTranscriber:
             write_vtt(segments, file=segmentStream, maxLineWidth=maxLineWidth, highlight_words=highlight_words)
         elif format == 'srt':
             write_srt(segments, file=segmentStream, maxLineWidth=maxLineWidth, highlight_words=highlight_words)
+        elif format == 'html':
+            write_html(segments, file=segmentStream, maxLineWidth=maxLineWidth, highlight_words=highlight_words)
         else:
             raise Exception("Unknown format " + format)
 

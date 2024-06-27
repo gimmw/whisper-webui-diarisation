@@ -157,7 +157,7 @@ def main():
     parser.add_argument('--output_json_file', type=str, default=None, help='Output JSON file (optional)')
     parser.add_argument('--output_srt_file', type=str, default=None, help='Output SRT file (optional)')
     parser.add_argument('--auth_token', type=str, default=None, help='HuggingFace API Token (optional)')
-    parser.add_argument("--max_line_width", type=int, default=4000, help="Maximum line width for SRT file (default: 40)")
+    parser.add_argument("--max_line_width", type=int, default=40, help="Maximum line width for SRT file (default: 40)")
     parser.add_argument("--num_speakers", type=int, default=None, help="Number of speakers")
     parser.add_argument("--min_speakers", type=int, default=None, help="Minimum number of speakers")
     parser.add_argument("--max_speakers", type=int, default=None, help="Maximum number of speakers")

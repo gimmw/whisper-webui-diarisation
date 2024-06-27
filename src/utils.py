@@ -55,6 +55,137 @@ def write_txt(transcript: Iterator[dict], file: TextIO):
     for segment in transcript:
         print(segment['text'].strip(), file=file, flush=True)
 
+def write_html(transcript: Iterator[dict], file: TextIO, maxLineWidth=None, highlight_words: bool = False):
+  
+    print("<html>", file=file)
+    #print inline css
+    css = """
+      body {
+        color-scheme: light dark;
+        color: #ffffffde;
+        background-color: #242424;
+      }
+      
+      span.timestamp {
+        font-family: monospace;
+      }
+      
+      div.segment {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        text-align: left;
+      }
+      
+      .speaker.s00 {
+        color: #59ffa1;
+      }
+      
+      .speaker.s01 {
+        color: #597aff;
+      }
+      
+      .speaker.s02 {
+        color: #ff9595;
+      }
+      
+      .speaker.s03 {
+        color: #e29b16;
+      }
+      
+      .speaker.s04 {
+        color: #e29b16;
+      }
+      
+      .speaker.s05 {
+        color: #8316e2;
+      }
+      
+      .speaker.s06 {
+        color: #8316e2;
+      }
+      
+      .speaker.s07 {
+        color: #16e29b;
+      }
+      
+      .speaker.s08 {
+        color: #e23f16;
+      }
+      
+      .speaker.s09 {
+        color: #e23f16;
+      }
+      
+      .speaker.s10 {
+        color: #16bae2;
+      }
+      
+      .speaker.s11 {
+        color: #a9e216;
+      }
+      
+      .speaker.s12 {
+        color: #1676e2;
+      }
+      
+      .speaker.s13 {
+        color: #163fe2;
+      }
+      
+      .speaker.s14 {
+        color: #16bae2;
+      }
+      
+      .speaker.s15 {
+        color: #e2165e;
+      }
+      
+      .speaker.s16 {
+        color: #e23516;
+      }
+      
+      .speaker.s17 {
+        color: #16e287;
+      }
+      
+      .speaker.s18 {
+        color: #16bae2;
+      }
+      
+      .speaker.s19 {
+        color: #e2a216;
+      }
+    """
+    print (f"\t<head>\t\t<style>{css}\t\t</style>\t</head>", file=file)
+    print("\t<body>\n", file=file)
+    print("\t\t<div class='segments'>\n", file=file)
+    for segment in transcript:
+      try:
+        #text = re.sub(r'\(SPEAKER_\d+\)', '', segment['text'])
+        text = segment['text']
+        #segment_longest_speaker = segment.get('longest_speaker', '')
+        segment_longest_speaker = segment.get('longest_speaker', None)
+
+        if match := re.search('SPEAKER_(\d+)', segment_longest_speaker):
+          speakerid = match.group(1)
+        else:
+          speakerid = ""
+        
+        
+        print(
+                f"\t\t\t<div class=\"segment\">\n\t\t<span class=\"timestamp\">{format_timestamp(segment['start'])}</span>\n"
+                f"\t\t\t\t<span class=\"speaker s{speakerid}\">{speakerid}</span>\n"
+                f"\t\t\t\t<p class=\"speaker s{speakerid}\">{text}</p>\n"
+                f"\t\t\t</div>\n",
+                file=file,
+                flush=True,
+            )
+      except Exception as e:
+        print(f"Error writing segment {segment}: {e}")
+        raise
+    print("\t\t</div>\n", file=file)
+    print("\t</body></html>", file=file)
 
 def write_vtt(transcript: Iterator[dict], file: TextIO, 
               maxLineWidth=None, highlight_words: bool = False):

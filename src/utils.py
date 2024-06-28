@@ -77,83 +77,87 @@ def write_html(transcript: Iterator[dict], file: TextIO, maxLineWidth=None, high
         text-align: left;
       }
       
-      .speaker.s00 {
+      span.speaker.speakerid {
+        font-family: monospace;
+      }
+      
+      .speaker.sSPEAKER_00 {
         color: #59ffa1;
       }
       
-      .speaker.s01 {
+      .speaker.sSPEAKER_01 {
         color: #597aff;
       }
       
-      .speaker.s02 {
+      .speaker.sSPEAKER_02 {
         color: #ff9595;
       }
       
-      .speaker.s03 {
+      .speaker.sSPEAKER_03 {
         color: #e29b16;
       }
       
-      .speaker.s04 {
+      .speaker.sSPEAKER_04 {
         color: #e29b16;
       }
       
-      .speaker.s05 {
+      .speaker.sSPEAKER_05 {
         color: #8316e2;
       }
       
-      .speaker.s06 {
+      .speaker.sSPEAKER_06 {
         color: #8316e2;
       }
       
-      .speaker.s07 {
+      .speaker.sSPEAKER_07 {
         color: #16e29b;
       }
       
-      .speaker.s08 {
+      .speaker.sSPEAKER_08 {
         color: #e23f16;
       }
       
-      .speaker.s09 {
+      .speaker.sSPEAKER_09 {
         color: #e23f16;
       }
       
-      .speaker.s10 {
+      .speaker.sSPEAKER_10 {
         color: #16bae2;
       }
       
-      .speaker.s11 {
+      .speaker.sSPEAKER_11 {
         color: #a9e216;
       }
       
-      .speaker.s12 {
+      .speaker.sSPEAKER_12 {
         color: #1676e2;
       }
       
-      .speaker.s13 {
+      .speaker.sSPEAKER_13 {
         color: #163fe2;
       }
       
-      .speaker.s14 {
+      .speaker.sSPEAKER_14 {
         color: #16bae2;
       }
       
-      .speaker.s15 {
+      .speaker.sSPEAKER_15 {
         color: #e2165e;
       }
       
-      .speaker.s16 {
+      .speaker.sSPEAKER_16 {
         color: #e23516;
       }
       
-      .speaker.s17 {
+      .speaker.sSPEAKER_17 {
         color: #16e287;
       }
       
-      .speaker.s18 {
+      .speaker.sSPEAKER_18 {
         color: #16bae2;
       }
       
-      .speaker.s19 {
+      .speaker.sSPEAKER_19 {
         color: #e2a216;
       }
     """
@@ -175,7 +179,7 @@ def write_html(transcript: Iterator[dict], file: TextIO, maxLineWidth=None, high
         
         print(
                 f"\t\t\t<div class=\"segment\">\n\t\t<span class=\"timestamp\">{format_timestamp(segment['start'])}</span>\n"
-                f"\t\t\t\t<span class=\"speaker s{speakerid}\">{speakerid}</span>\n"
+                f"\t\t\t\t<span class=\"speakerid speaker s{speakerid}\">{speakerid}</span>\n"
                 f"\t\t\t\t<p class=\"speaker s{speakerid}\">{text}</p>\n"
                 f"\t\t\t</div>\n",
                 file=file,

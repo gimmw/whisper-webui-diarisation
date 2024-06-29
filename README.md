@@ -1,4 +1,4 @@
-Fork of https://gitlab.com/aadnk/whisper-webui
+Fork of https://gitlab.com/aadnk/whisper-webui  ❤️⚡
 
 Changes:
 * html transcript output, with colorised speaker segments when using diarisation
@@ -95,7 +95,7 @@ You can also select the whisper implementation in `config.json5`:
 ```
 ### GPU Acceleration
 
-In order to use GPU acceleration with Faster Whisper, both CUDA 11.2 and cuDNN 8 must be installed. You may want to install it in a virtual environment like Anaconda.
+In order to use GPU acceleration with Faster Whisper, both CUDA 12 and cuDNN 8 must be installed. You may want to install it in a virtual environment like Anaconda.
 
 ## Google Colab
 

@@ -3,8 +3,6 @@ ctranslate2>=4.0,<5
 faster-whisper~=1.0.2
 #ffmpeg-python==0.2.0
 ffmpeg-python
-#gradio==3.38.0
-#gradio-client==0.8.1
 ## gradio >= 4.31 required to support root_path
 gradio~=4.36.1
 gradio-client~=1.0.1

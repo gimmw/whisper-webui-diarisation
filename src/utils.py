@@ -90,7 +90,7 @@ def write_html(transcript: Iterator[dict], file: TextIO, maxLineWidth=None, high
       }
       
       .speaker.sSPEAKER_02 {
-        color: #ff9595;
+        color: #f04f4f;
       }
       
       .speaker.sSPEAKER_03 {
@@ -98,7 +98,7 @@ def write_html(transcript: Iterator[dict], file: TextIO, maxLineWidth=None, high
       }
       
       .speaker.sSPEAKER_04 {
-        color: #e29b16;
+        color: #16c5e2;
       }
       
       .speaker.sSPEAKER_05 {
@@ -106,7 +106,7 @@ def write_html(transcript: Iterator[dict], file: TextIO, maxLineWidth=None, high
       }
       
       .speaker.sSPEAKER_06 {
-        color: #8316e2;
+        color: #e216af;;
       }
       
       .speaker.sSPEAKER_07 {
@@ -114,11 +114,11 @@ def write_html(transcript: Iterator[dict], file: TextIO, maxLineWidth=None, high
       }
       
       .speaker.sSPEAKER_08 {
-        color: #e23f16;
+        color: #3fe216;
       }
       
       .speaker.sSPEAKER_09 {
-        color: #e23f16;
+        color: #9b16e2;
       }
       
       .speaker.sSPEAKER_10 {
@@ -134,19 +134,19 @@ def write_html(transcript: Iterator[dict], file: TextIO, maxLineWidth=None, high
       }
       
       .speaker.sSPEAKER_13 {
-        color: #163fe2;
+        color: #dcbeff;
       }
       
       .speaker.sSPEAKER_14 {
-        color: #16bae2;
+        color: #aaffc3;
       }
       
       .speaker.sSPEAKER_15 {
-        color: #e2165e;
+        color: #ffd8b1;
       }
       
       .speaker.sSPEAKER_16 {
-        color: #e23516;
+        color: #fabed4;
       }
       
       .speaker.sSPEAKER_17 {
@@ -158,7 +158,7 @@ def write_html(transcript: Iterator[dict], file: TextIO, maxLineWidth=None, high
       }
       
       .speaker.sSPEAKER_19 {
-        color: #e2a216;
+        color: #a9a9a9;
       }
     """
     print (f"\t<head>\t\t<style>{css}\t\t</style>\t</head>", file=file)

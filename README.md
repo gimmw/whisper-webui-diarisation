@@ -5,6 +5,7 @@ Changes:
 * CUDA11 -> CUDA12
 * upgraded to Gradio 4 (in order to support root_path, required to run on non-root URL prefix when reverse proxying)
 * upgraded to latest pyannote-audio with support for speechbrain 1.0
+* Chinese -> Mandarin, Cantonese
 * Apache2 -> GPL3
 
 

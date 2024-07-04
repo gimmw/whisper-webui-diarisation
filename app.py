@@ -109,7 +109,7 @@ class WhisperTranscriber:
     def transcribe_webui_simple(self, modelName, languageName, urlData, multipleFiles, microphoneData, task, 
                                 vad, vadMergeWindow, vadMaxMergeSize, 
                                 word_timestamps: bool = False, highlight_words: bool = False,
-                                diarization: bool = False, diarization_speakers: int = 2):
+                                diarization: bool = False, diarization_speakers: int = None):
         return self.transcribe_webui_simple_progress(modelName, languageName, urlData, multipleFiles, microphoneData, task, 
                                                      vad, vadMergeWindow, vadMaxMergeSize, 
                                                      word_timestamps, highlight_words, 
@@ -119,7 +119,7 @@ class WhisperTranscriber:
     def transcribe_webui_simple_progress(self, modelName, languageName, urlData, multipleFiles, microphoneData, task, 
                                          vad, vadMergeWindow, vadMaxMergeSize, 
                                          word_timestamps: bool = False, highlight_words: bool = False, 
-                                         diarization: bool = False, diarization_speakers: int = 2,
+                                         diarization: bool = False, diarization_speakers: int = None,
                                          progress=gr.Progress()):
         
         vadOptions = VadOptions(vad, vadMergeWindow, vadMaxMergeSize, self.app_config.vad_padding, self.app_config.vad_prompt_window, self.app_config.vad_initial_prompt_mode)
@@ -140,7 +140,7 @@ class WhisperTranscriber:
                               initial_prompt: str, temperature: float, best_of: int, beam_size: int, patience: float, length_penalty: float, suppress_tokens: str, 
                               condition_on_previous_text: bool, fp16: bool, temperature_increment_on_fallback: float, 
                               compression_ratio_threshold: float, logprob_threshold: float, no_speech_threshold: float,
-                              diarization: bool = False, diarization_speakers: int = 2, 
+                              diarization: bool = False, diarization_speakers: int = None, 
                               diarization_min_speakers = 1, diarization_max_speakers = 5):
         
         return self.transcribe_webui_full_progress(modelName, languageName, urlData, multipleFiles, microphoneData, task, 
@@ -160,7 +160,7 @@ class WhisperTranscriber:
                                         initial_prompt: str, temperature: float, best_of: int, beam_size: int, patience: float, length_penalty: float, suppress_tokens: str, 
                                         condition_on_previous_text: bool, fp16: bool, temperature_increment_on_fallback: float, 
                                         compression_ratio_threshold: float, logprob_threshold: float, no_speech_threshold: float, 
-                                        diarization: bool = False, diarization_speakers: int = 2, 
+                                        diarization: bool = False, diarization_speakers: int = None, 
                                         diarization_min_speakers = 1, diarization_max_speakers = 5,
                                         progress=gr.Progress()):
 
@@ -189,7 +189,7 @@ class WhisperTranscriber:
     # Perform diarization given a specific input audio file and whisper file
     def perform_extra(self, languageName, urlData, singleFile, whisper_file: str, 
                       highlight_words: bool = False,
-                      diarization: bool = False, diarization_speakers: int = 2, diarization_min_speakers = 1, diarization_max_speakers = 5, progress=gr.Progress()):
+                      diarization: bool = False, diarization_speakers: int = None, diarization_min_speakers = 1, diarization_max_speakers = 5, progress=gr.Progress()):
     
         if whisper_file is None:
             raise ValueError("whisper_file is required")

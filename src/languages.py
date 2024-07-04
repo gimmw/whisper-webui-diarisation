@@ -8,10 +8,12 @@ class Language():
 
 LANGUAGES = [
     Language('en', 'English'),
-    Language('zh', 'Chinese'),   
+    Language('zh', 'Mandarin'),
+    Language('yue', 'Cantonese'),   
     Language('de', 'German'),    
     Language('es', 'Spanish'),   
-    Language('ru', 'Russian'),   
+    Language('ru', 'Russian'),
+    Language('nl', 'Dutch'),    
     Language('ko', 'Korean'),    
     Language('fr', 'French'),    
     Language('ja', 'Japanese'),  
@@ -19,7 +21,6 @@ LANGUAGES = [
     Language('tr', 'Turkish'),   
     Language('pl', 'Polish'),    
     Language('ca', 'Catalan'),   
-    Language('nl', 'Dutch'),     
     Language('ar', 'Arabic'),
     Language('sv', 'Swedish'),
     Language('it', 'Italian'),

@@ -125,7 +125,7 @@ class WhisperTranscriber:
         vadOptions = VadOptions(vad, vadMergeWindow, vadMaxMergeSize, self.app_config.vad_padding, self.app_config.vad_prompt_window, self.app_config.vad_initial_prompt_mode)
 
         if diarization:
-            self.set_diarization(auth_token=self.app_config.auth_token, num_speakers=diarization_speakers)
+            self.set_diarization(auth_token=self.app_config.auth_token, num_speakers=diarization_speakers if diarization_speakers > 0 else None)
         else:
             self.unset_diarization()
 
@@ -174,7 +174,7 @@ class WhisperTranscriber:
 
         # Set diarization
         if diarization:
-            self.set_diarization(auth_token=self.app_config.auth_token, num_speakers=diarization_speakers, 
+            self.set_diarization(auth_token=self.app_config.auth_token, num_speakers=diarization_speakers if diarization_speakers > 0 else None, 
                                  min_speakers=diarization_min_speakers, max_speakers=diarization_max_speakers)
         else:
             self.unset_diarization()
@@ -196,7 +196,7 @@ class WhisperTranscriber:
 
          # Set diarization
         if diarization:
-            self.set_diarization(auth_token=self.app_config.auth_token, num_speakers=diarization_speakers, 
+            self.set_diarization(auth_token=self.app_config.auth_token, num_speakers=diarization_speakers if diarization_speakers > 0 else None, 
                                 min_speakers=diarization_min_speakers, max_speakers=diarization_max_speakers)
         else:
             self.unset_diarization()
@@ -637,7 +637,7 @@ def create_ui(app_config: ApplicationConfig):
 
     common_diarization_inputs = lambda : [
         gr.Checkbox(label="Diarisation", value=app_config.diarization, interactive=has_diarization_libs),
-        gr.Number(label="Diarisation - Speakers", precision=0, value=app_config.diarization_speakers, interactive=has_diarization_libs)
+        gr.Number(label="Diarisation - Speakers", precision=0, value=None, interactive=has_diarization_libs)
     ]
 
     is_queue_mode = app_config.queue_concurrency_count is not None and app_config.queue_concurrency_count > 0    
